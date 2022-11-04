@@ -10,6 +10,7 @@ from nox_poetry import session
 
 
 package = "cookiecutter_hypermodern_python_ml_example"
+python_versions = ["3.10", "3.9"]
 
 nox.options.sessions = (
     "pre-commit",
@@ -22,7 +23,7 @@ nox.options.sessions = (
 )
 
 
-@session(name="pre-commit")
+@session(name="pre-commit", python=python_versions[0])
 def precommit(session: Session) -> None:
     """Lint using pre-commit"""
     args = session.posargs or [
@@ -47,7 +48,7 @@ def precommit(session: Session) -> None:
     session.run("pre-commit", *args)
 
 
-@session()
+@session(python=python_versions[0])
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
     requirements = session.poetry.export_requirements()
@@ -55,7 +56,7 @@ def safety(session: Session) -> None:
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
-@session()
+@session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or [package, "tests", "docs/conf.py"]
@@ -66,7 +67,7 @@ def mypy(session: Session) -> None:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@session()
+@session(python=python_versions)
 def tests(session: Session) -> None:
     """Run the test suite."""
     session.install(".")
@@ -78,7 +79,7 @@ def tests(session: Session) -> None:
             session.notify("coverage", posargs=[])
 
 
-@session()
+@session(python=python_versions[0])
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report"]
@@ -91,7 +92,7 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@session()
+@session(python=python_versions[0])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
     session.install(".")
@@ -99,7 +100,7 @@ def typeguard(session: Session) -> None:
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@session()
+@session(python=python_versions)
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     if session.posargs:
@@ -114,7 +115,7 @@ def xdoctest(session: Session) -> None:
     session.run("python", "-m", "xdoctest", *args)
 
 
-@session(name="docs-build")
+@session(name="docs-build", python=python_versions[0])
 def docs_build(session: Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
@@ -131,7 +132,7 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@session()
+@session(python=python_versions[0])
 def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
