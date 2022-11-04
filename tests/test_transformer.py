@@ -1,8 +1,5 @@
-"""
-Test the Transformer.
-"""
+"""Test the Transformer."""
 
-import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.datasets import make_classification
@@ -10,34 +7,35 @@ from sklearn.datasets import make_classification
 from cookiecutter_hypermodern_python_ml_example.pipeline.transformer import Transformer
 
 
-clf_X_arr, clf_y_arr = make_classification()
-clf_X_df = pd.DataFrame(clf_X_arr, columns=[f"feat_{i}" for i in range(len(clf_X_arr))])
-clf_y_df = pd.Series(clf_y_arr)
+CLF_ARR_X, CLF_ARR_Y = make_classification()
+CLF_DF_X = pd.DataFrame(CLF_ARR_X, columns=[f"feat_{i}" for i in range(len(CLF_ARR_X))])
+CLF_DF_Y = pd.Series(CLF_ARR_Y)
 
 
 def test_transformer():
+    """Tests fit, transform and fit_transform methods of the Transformer."""
     transformer = Transformer()
 
-    transformer.fit(clf_X_arr, clf_y_arr)
+    transformer.fit(CLF_ARR_X, CLF_ARR_Y)
     assert isinstance(transformer.column_transformer, ColumnTransformer)
 
-    transformed_X = transformer.transform(clf_X_arr)
-    assert transformed_X.shape[0] == clf_X_arr.shape[0]
-    assert transformed_X.shape[1] == len(transformer.get_feature_names_out())
+    transformed_x = transformer.transform(CLF_ARR_X)
+    assert transformed_x.shape[0] == CLF_ARR_X.shape[0]
+    assert transformed_x.shape[1] == len(transformer.get_feature_names_out())
 
-    transformed_X = transformer.fit_transform(clf_X_arr, clf_y_arr)
+    transformed_x = transformer.fit_transform(CLF_ARR_X, CLF_ARR_Y)
     assert isinstance(transformer.column_transformer, ColumnTransformer)
-    assert transformed_X.shape[0] == clf_X_arr.shape[0]
-    assert transformed_X.shape[1] == len(transformer.get_feature_names_out())
+    assert transformed_x.shape[0] == CLF_ARR_X.shape[0]
+    assert transformed_x.shape[1] == len(transformer.get_feature_names_out())
 
-    transformer.fit(clf_X_df, clf_y_df)
+    transformer.fit(CLF_DF_X, CLF_DF_Y)
     assert isinstance(transformer.column_transformer, ColumnTransformer)
 
-    transformed_X = transformer.transform(clf_X_df)
-    assert transformed_X.shape[0] == clf_X_df.shape[0]
-    assert transformed_X.shape[1] == len(transformer.get_feature_names_out())
+    transformed_x = transformer.transform(CLF_DF_X)
+    assert transformed_x.shape[0] == CLF_DF_X.shape[0]
+    assert transformed_x.shape[1] == len(transformer.get_feature_names_out())
 
-    transformed_X = transformer.fit_transform(clf_X_df, clf_y_df)
+    transformed_x = transformer.fit_transform(CLF_DF_X, CLF_DF_Y)
     assert isinstance(transformer.column_transformer, ColumnTransformer)
-    assert transformed_X.shape[0] == clf_X_df.shape[0]
-    assert transformed_X.shape[1] == len(transformer.get_feature_names_out())
+    assert transformed_x.shape[0] == CLF_DF_X.shape[0]
+    assert transformed_x.shape[1] == len(transformer.get_feature_names_out())

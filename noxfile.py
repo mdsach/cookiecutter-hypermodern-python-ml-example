@@ -1,4 +1,5 @@
 """Nox sessions."""
+
 import os
 import shutil
 import sys
@@ -25,7 +26,7 @@ nox.options.sessions = (
 
 @session(name="pre-commit", python=python_versions[0])
 def precommit(session: Session) -> None:
-    """Lint using pre-commit"""
+    """Lint using pre-commit."""
     args = session.posargs or [
         "run",
         "--all-files",
