@@ -44,7 +44,7 @@ class Transformer:
     def fit(
         self,
         X: Union[pd.DataFrame, npt.NDArray[Any]],
-        y: Optional[Union[pd.Series[Any], npt.NDArray[Any]]] = None,
+        y: Optional[Union["pd.Series[Any]", npt.NDArray[Any]]] = None,
     ) -> "Transformer":
         """Fit a Transformer using X.
 
@@ -55,7 +55,7 @@ class Transformer:
         Returns:
             Transformer: This Transformer.
         """
-        self.transformer = ColumnTransformer(
+        self.column_transformer = ColumnTransformer(
             [
                 (
                     STANDARD_SCALER_PARAMS.name,
@@ -67,7 +67,7 @@ class Transformer:
             ],
             **COLUMN_TRANSFORMER_PARAMS.dict()
         )
-        self.transformer.fit(X, y)
+        self.column_transformer.fit(X, y)
         return self
 
     def transform(self, X: Union[pd.DataFrame, npt.NDArray[Any]]) -> Any:
@@ -87,7 +87,7 @@ class Transformer:
     def fit_transform(
         self,
         X: Union[pd.DataFrame, npt.NDArray[Any]],
-        y: Optional[Union[pd.Series[Any], npt.NDArray[Any]]] = None,
+        y: Optional[Union["pd.Series[Any]", npt.NDArray[Any]]] = None,
     ) -> Any:
         """Fit a Transformer using X, then transform X using the Transformer.
 

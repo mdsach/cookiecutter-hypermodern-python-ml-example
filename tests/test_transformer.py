@@ -8,7 +8,9 @@ from cookiecutter_hypermodern_python_ml_example.pipeline.transformer import Tran
 
 
 CLF_ARR_X, CLF_ARR_Y = make_classification()
-CLF_DF_X = pd.DataFrame(CLF_ARR_X, columns=[f"feat_{i}" for i in range(len(CLF_ARR_X))])
+CLF_DF_X = pd.DataFrame(
+    CLF_ARR_X, columns=[f"feat_{i}" for i in range(CLF_ARR_X.shape[1])]
+)
 CLF_DF_Y = pd.Series(CLF_ARR_Y)
 
 
