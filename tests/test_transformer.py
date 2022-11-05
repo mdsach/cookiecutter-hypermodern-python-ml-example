@@ -12,7 +12,7 @@ CLF_DF_X = pd.DataFrame(CLF_ARR_X, columns=[f"feat_{i}" for i in range(len(CLF_A
 CLF_DF_Y = pd.Series(CLF_ARR_Y)
 
 
-def test_transformer():
+def test_transformer() -> None:
     """Tests fit, transform and fit_transform methods of the Transformer."""
     transformer = Transformer()
 

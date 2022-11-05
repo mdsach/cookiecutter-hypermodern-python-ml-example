@@ -5,10 +5,8 @@ from typing import Any
 from typing import Optional
 from typing import Union
 
-import numpy as np
 import numpy.typing as npt
 import pandas as pd
-from sklearn.base import TransformerMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler
 
