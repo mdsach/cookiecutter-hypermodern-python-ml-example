@@ -1,8 +1,10 @@
 """Contracts for Transformer parameters."""
 
+from typing import Optional
 from typing import Union
 
 from pydantic import BaseModel
+from pydantic import Field
 from pydantic import StrictBool
 from pydantic import StrictFloat
 from pydantic import StrictInt
@@ -16,7 +18,7 @@ class StandardScalerContract(BaseModel):
     <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html>`_.
     """
 
-    copy: StrictBool = True
+    _copy: StrictBool = Field(True, alias="copy")
     with_mean: StrictBool = True
     with_std: StrictBool = True
 
@@ -29,7 +31,7 @@ class MinMaxScalerContract(BaseModel):
     """
 
     feature_range: tuple[float, float] = (0, 1)
-    copy: StrictBool = True
+    _copy: StrictBool = Field(True, alias="copy")
     clip: StrictBool = False
 
 
@@ -55,6 +57,6 @@ class ColumnTransformerContract(BaseModel):
     remainder: StrictStr = "drop"
     sparse_threshold: StrictFloat = 0.3
     n_jobs: StrictInt = -1
-    transformer_weights: dict[StrictStr, float] = None
+    transformer_weights: Optional[dict[StrictStr, float]] = None
     verbose: StrictBool = False
     verbose_feature_names_out: StrictBool = True
