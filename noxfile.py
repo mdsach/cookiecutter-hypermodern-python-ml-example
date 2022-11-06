@@ -93,7 +93,7 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@session(python=python_versions)
+@session(python=python_versions[0])
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     if session.posargs:
