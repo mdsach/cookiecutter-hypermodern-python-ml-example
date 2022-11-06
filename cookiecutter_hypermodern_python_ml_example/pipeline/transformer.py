@@ -44,7 +44,7 @@ class Transformer:
     def fit(
         self,
         X: Union[pd.DataFrame, npt.NDArray[Any]],
-        y: Optional[Union["pd.Series[Any]", npt.NDArray[Any]]] = None,
+        y: Optional[Union["pd.Series[int]", npt.NDArray[Any]]] = None,
     ) -> "Transformer":
         """Fit a Transformer using X.
 
@@ -87,7 +87,7 @@ class Transformer:
     def fit_transform(
         self,
         X: Union[pd.DataFrame, npt.NDArray[Any]],
-        y: Optional[Union["pd.Series[Any]", npt.NDArray[Any]]] = None,
+        y: Optional[Union["pd.Series[int]", npt.NDArray[Any]]] = None,
     ) -> Any:
         """Fit a Transformer using X, then transform X using the Transformer.
 
