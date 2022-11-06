@@ -18,8 +18,6 @@ nox.options.sessions = (
     "safety",
     "mypy",
     "tests",
-    "windows-tests",
-    "mac-tests",
     "xdoctest",
     "docs-build",
 )

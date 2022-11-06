@@ -18,8 +18,8 @@ jobs:
           - { python: "3.9", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.10", os: "ubuntu-latest", session: "tests" }
           - { python: "3.9", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.10", os: "windows-latest", session: "windows-tests" }
-          - { python: "3.10", os: "macos-latest", session: "mac-tests" }
+          - { python: "3.10", os: "windows-latest", session: "tests" }
+          - { python: "3.10", os: "macos-latest", session: "tests" }
           - { python: "3.10", os: "ubuntu-latest", session: "xdoctest" }
           - { python: "3.10", os: "ubuntu-latest", session: "docs-build" }
 
@@ -90,7 +90,7 @@ jobs:
           nox --python=${{ matrix.python }}
 
       - name: Upload coverage data
-        if: always() && matrix.session == 'tests'
+        if: always() && matrix.session == 'tests' && matrix.os == 'ubuntu-latest'
         uses: "actions/upload-artifact@v3"
         with:
           name: coverage-data
